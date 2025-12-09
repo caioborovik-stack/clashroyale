@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Clash Royale — Fan Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg:#0f1724;
+            --card:#0b1220;
+            --accent:#ffcc33;
+            --muted:#9aa4b2;
+            --glass: rgba(255,255,255,0.03);
+            --win: #22c55e;
+            --danger:#ef4444;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+            background:
+                radial-gradient(1200px 400px at 10% 10%, rgba(34,197,94,0.06), transparent 10%),
+                radial-gradient(900px 300px at 90% 90%, rgba(99,102,241,0.04), transparent 10%),
+                var(--bg);
+            color:#e6eef8;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            padding:24px;
+        }
+
+        header{
+            display:flex;
+            gap:16px;
+            align-items:center;
+            justify-content:space-between;
+            margin-bottom:18px;
+        }
+        .brand{
+            display:flex;
+            gap:12px;
+            align-items:center;
+        }
+        .logo{
+            width:56px;height:56px;border-radius:12px;
+            background:linear-gradient(135deg,#2dd4bf,#60a5fa);
+            display:grid;place-items:center;font-weight:700;color:#042a2b;font-size:20px;
+            box-shadow:0 6px 18px rgba(2,6,23,0.6), inset 0 -6px 18px rgba(255,255,255,0.06);
+        }
+        nav a{
+            color:var(--muted);
+            text-decoration:none;
+            margin-left:16px;
+            font-weight:600;
+        }
+        .container{
+            display:grid;
+            grid-template-columns: 1fr 360px;
+            gap:20px;
+        }
+
+        /* Hero */
+        .hero{
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+            border-radius:14px;
+            padding:18px;
+            box-shadow: 0 6px 30px rgba(2,6,23,0.5);
+        }
+        .hero-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+        .hero h1{margin:0;font-size:20px}
+        .hero p{margin:6px 0 0;color:var(--muted);font-size:14px}
+
+        /* Cards grid */
+        .controls{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+        .search{
+            flex:1;min-width:140px;
+            background:var(--glass);border:1px solid rgba(255,255,255,0.03);
+            padding:8px 10px;border-radius:10px;color:inherit;
+        }
+        .select{
+            background:var(--glass);border-radius:10px;padding:8px 10px;color:inherit;border:1px solid rgba(255,255,255,0.03);
+        }
+
+        .cards{
+            margin-top:14px;
+            display:grid;
+            grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
+            gap:12px;
+        }
+        .card{
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+            border-radius:12px;padding:10px;border:1px solid rgba(255,255,255,0.03);
+            display:flex;gap:12px;align-items:center;cursor:pointer;transition:transform .14s ease, box-shadow .14s;
+        }
+        .card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+        .card .thumb{
+            width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#0ea5a6,#60a5fa);
+            display:grid;place-items:center;font-weight:700;color:#001217;font-size:18px;
+        }
+        .card .meta{flex:1}
+        .card .meta .name{font-weight:700}
+        .card .meta .type{font-size:12px;color:var(--muted)}
+        .elixir{
+            background:#071124;border-radius:8px;padding:8px 10px;font-weight:700;
+            color:var(--accent);min-width:44px;text-align:center;
+        }
+
+        /* Sidebar (Deck) */
+        .deck{
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+            border-radius:14px;padding:14px;border:1px solid rgba(255,255,255,0.03);
+            height:fit-content;
+        }
+        .deck h3{margin:0 0 8px 0}
+        .slots{
+            display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px;
+        }
+        .slot{
+            background:var(--card);height:70px;border-radius:10px;display:grid;place-items:center;color:var(--muted);
+            border:1px dashed rgba(255,255,255,0.03);font-size:13px;padding:8px;text-align:center;
+        }
+        .slot.filled{border-style:solid;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+        .deck-stats{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--muted)}
+        .btn{
+            background:linear-gradient(90deg,#7c3aed,#06b6d4);
+            color:white;padding:10px 12px;border-radius:10px;border:0;font-weight:700;cursor:pointer;
+        }
+        .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+        .small{font-size:13px;padding:8px 10px;border-radius:8px}
+
+        footer{margin-top:18px;color:var(--muted);text-align:center;font-size:13px}
+
+        @media (max-width:960px){
+            .container{grid-template-columns:1fr}
+            .deck{order:2}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="brand">
+            <div class="logo">CR</div>
+            <div>
+                <div style="font-weight:700">Clash Royale — Fan Hub</div>
+                <div style="font-size:13px;color:var(--muted)">model de site para guias e decks</div>
+            </div>
+        </div>
+        <nav>
+            <a href="#cards">Cartas</a>
+            <a href="#deck">Deck</a>
+            <a href="#sobre">Sobre</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero" id="cards">
+            <div class="hero-top">
+                <div>
+                    <h1>Construtor de Deck</h1>
+                    <p>Escolha cartas para montar seu deck de 8 cartas — clique para adicionar. Média de Elixir calculada automaticamente.</p>
+                </div>
+                <div style="text-align:right">
+                    <div style="font-weight:700;font-size:18px">Dica</div>
+                    <div style="color:var(--muted);font-size:13px">Use busca e filtros para encontrar cartas</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <input id="search" class="search" placeholder="Buscar carta por nome..." />
+                <select id="filterType" class="select">
+                    <option value="">Todos os tipos</option>
+                    <option value="Tropa">Tropa</option>
+                    <option value="Feitiço">Feitiço</option>
+                    <option value="Construção">Construção</option>
+                </select>
+                <select id="sort" class="select">
+                    <option value="name">Ordenar: Nome</option>
+                    <option value="elixir">Ordenar: Elixir</option>
+                </select>
+                <button id="clearDeck" class="btn small">Limpar deck</button>
+            </div>
+
+            <div class="cards" id="cardsGrid" aria-live="polite">
+                <!-- cards rendered by JS -->
+            </div>
+        </section>
+
+        <aside class="deck" id="deck">
+            <h3>Seu Deck (<span id="count">0</span>/8)</h3>
+            <div class="slots" id="slots">
+                <!-- 8 slots -->
+            </div>
+            <div class="deck-stats">
+                <div>
+                    <div style="font-size:12px;color:var(--muted)">Elixir médio</div>
+                    <div id="avgElixir" style="font-weight:700;font-size:18px">0.0</div>
+                </div>
+                <div style="text-align:right">
+                    <div style="font-size:12px;color:var(--muted)">Salvar / Carregar</div>
+                    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px">
+                        <button id="saveBtn" class="btn small">Salvar</button>
+                        <button id="loadBtn" class="btn ghost small">Carregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:12px;font-size:13px;color:var(--muted)">
+                Clique em uma carta para adicioná-la. Clique em uma carta do deck para removê-la.
+            </div>
+        </aside>
+    </main>
+
+    <footer id="sobre">
+        <div style="max-width:900px;margin:14px auto 0">
+            <strong>Sobre</strong>
+            <div style="color:var(--muted);margin-top:8px">
+                Site de fã para organizar decks, guias e estatísticas. Não é afiliado à Supercell. Use este modelo como base — substitua imagens e textos por seu conteúdo.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample card database (genérico, sem imagens oficiais)
+        const cardsDB = [
+            { id:1, name:'Gigante', type:'Tropa', elixir:5, abbr:'G' },
+            { id:2, name:'Mosqueteira', type:'Tropa', elixir:4, abbr:'M' },
+            { id:3, name:'Bárbaros', type:'Tropa', elixir:5, abbr:'B' },
+            { id:4, name:'Príncipe', type:'Tropa', elixir:5, abbr:'P' },
+            { id:5, name:'Mago', type:'Tropa', elixir:4, abbr:'Mg' },
+            { id:6, name:'Bola de Fogo', type:'Feitiço', elixir:4, abbr:'BF' },
+            { id:7, name:'Flechas', type:'Feitiço', elixir:3, abbr:'F' },
+            { id:8, name:'Réplica', type:'Feitiço', elixir:2, abbr:'R' },
+            { id:9, name:'Canhão', type:'Construção', elixir:3, abbr:'C' },
+            { id:10, name:'Torre Inferno', type:'Construção', elixir:5, abbr:'TI' },
+            { id:11, name:'Lápide', type:'Construção', elixir:3, abbr:'L' },
+            { id:12, name:'Sabotador', type:'Tropa', elixir:2, abbr:'S' },
+            { id:13, name:'Curandeiro', type:'Tropa', elixir:3, abbr:'Cu' },
+            { id:14, name:'Golem', type:'Tropa', elixir:8, abbr:'Go' },
+            { id:15, name:'Mini P.E.K.K.A', type:'Tropa', elixir:4, abbr:'mP' }
+        ];
+
+        const cardsGrid = document.getElementById('cardsGrid');
+        const searchInput = document.getElementById('search');
+        const filterType = document.getElementById('filterType');
+        const sortSelect = document.getElementById('sort');
+        const slotsEl = document.getElementById('slots');
+        const countEl = document.getElementById('count');
+        const avgElixirEl = document.getElementById('avgElixir');
+        const clearDeckBtn = document.getElementById('clearDeck');
+        const saveBtn = document.getElementById('saveBtn');
+        const loadBtn = document.getElementById('loadBtn');
+
+        // deck state
+        let deck = [];
+
+        // initialize slots
+        function renderSlots(){
+            slotsEl.innerHTML = '';
+            for(let i=0;i<8;i++){
+                const div = document.createElement('div');
+                div.className = 'slot';
+                div.dataset.index = i;
+                if(deck[i]){
+                    div.classList.add('filled');
+                    div.innerHTML = `<div style="font-weight:700">${deck[i].name}</div>
+                                                     <div style="font-size:12px;color:var(--muted)">Elixir ${deck[i].elixir}</div>`;
+                    div.addEventListener('click', ()=> removeFromDeck(i));
+                } else {
+                    div.textContent = 'Vazio';
+                }
+                slotsEl.appendChild(div);
+            }
+            countEl.textContent = deck.length;
+            updateAvgElixir();
+        }
+
+        function updateAvgElixir(){
+            if(deck.length===0){ avgElixirEl.textContent='0.0'; return; }
+            const avg = deck.reduce((s,c)=>s+c.elixir,0)/deck.length;
+            avgElixirEl.textContent = avg.toFixed(1);
+        }
+
+        function addToDeck(card){
+            if(deck.length>=8) { alert('Deck já está cheio (8 cartas).'); return; }
+            deck.push(card);
+            renderSlots();
+        }
+        function removeFromDeck(index){
+            deck.splice(index,1);
+            renderSlots();
+        }
+        function clearDeck(){
+            deck = [];
+            renderSlots();
+        }
+
+        function renderCards(list){
+            cardsGrid.innerHTML = '';
+            list.forEach(c=>{
+                const el = document.createElement('div');
+                el.className = 'card';
+                el.innerHTML = `
+                    <div class="thumb" aria-hidden>${c.abbr}</div>
+                    <div class="meta">
+                        <div class="name">${c.name}</div>
+                        <div class="type">${c.type}</div>
+                    </div>
+                    <div class="elixir">${c.elixir}</div>
+                `;
+                el.addEventListener('click', ()=> addToDeck(c));
+                cardsGrid.appendChild(el);
+            });
+        }
+
+        function applyFilters(){
+            const q = searchInput.value.trim().toLowerCase();
+            const type = filterType.value;
+            const sort = sortSelect.value;
+            let list = cardsDB.filter(c=>{
+                if(type && c.type!==type) return false;
+                if(q && !c.name.toLowerCase().includes(q)) return false;
+                return true;
+            });
+            if(sort==='elixir') list.sort((a,b)=>a.elixir-b.elixir||a.name.localeCompare(b.name));
+            else list.sort((a,b)=>a.name.localeCompare(b.name));
+            renderCards(list);
+        }
+
+        // persistence
+        function saveDeck(){
+            try{
+                localStorage.setItem('cr_deck', JSON.stringify(deck));
+                alert('Deck salvo localmente.');
+            }catch(e){ alert('Erro ao salvar.'); }
+        }
+        function loadDeck(){
+            try{
+                const data = localStorage.getItem('cr_deck');
+                if(!data) { alert('Nenhum deck salvo.'); return; }
+                const arr = JSON.parse(data);
+                // validate and map to card objects from DB (by name)
+                deck = arr.map(d => cardsDB.find(c=>c.name===d.name) || null).filter(Boolean);
+                renderSlots();
+            }catch(e){ alert('Erro ao carregar.'); }
+        }
+
+        // events
+        searchInput.addEventListener('input', applyFilters);
+        filterType.addEventListener('change', applyFilters);
+        sortSelect.addEventListener('change', applyFilters);
+        clearDeckBtn.addEventListener('click', clearDeck);
+        saveBtn.addEventListener('click', saveDeck);
+        loadBtn.addEventListener('click', loadDeck);
+
+        // initial render
+        renderSlots();
+        renderCards(cardsDB);
+    </script>
+</body>
+</html>
